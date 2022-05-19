@@ -20,12 +20,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity /* Esto lo comunica con la BD */
 @Table(name = "clientes") /* Creamos la tabla */
-public class Cliente implements Serializable{
-    
-    private static final long serialVersionUID = 1L; /*Necesaria para la comunicación con la  base de datos*/ 
+public class Cliente implements Serializable {
 
-    @Id /*Aquí lo marcamos para dar a entender que es el Id en la BD*/ 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)/*Esto es lo que nos da el AutoIncrement en la BD*/
+    private static final long serialVersionUID = 1L; /* Necesaria para la comunicación con la base de datos */
+
+    @Id /* Aquí lo marcamos para dar a entender que es el Id en la BD */
+    @GeneratedValue(strategy = GenerationType.IDENTITY) /* Esto es lo que nos da el AutoIncrement en la BD */
     private long id;
 
     @NotEmpty
@@ -39,16 +39,21 @@ public class Cliente implements Serializable{
     private String Email;
 
     @NotNull
-    @Column(name = "create_at") /*Esto es e nombre de la columna en la BD*/
-    @Temporal(TemporalType.DATE) /*Le decimos que este es un tipo de dato TEMPORAL y DATE, esto con el fin de comunicarlo con la BD*/ 
+    @Column(name = "create_at") /* Esto es el nombre de la columna en la BD */
+    @Temporal(TemporalType.DATE) /*
+                                  * Le decimos que este es un tipo de dato TEMPORAL y DATE, esto con el fin de
+                                  * comunicarlo con la BD
+                                  */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date CreateAt;
 
-    /*@PrePersist //Para decir que la fecha es de hoy
-    public void PrePersist(){
-
-        CreateAt = new Date();
-    }*/
+    /*
+     * @PrePersist //Para decir que la fecha es de hoy
+     * public void PrePersist(){
+     * 
+     * CreateAt = new Date();
+     * }
+     */
 
     public long getId() {
         return id;

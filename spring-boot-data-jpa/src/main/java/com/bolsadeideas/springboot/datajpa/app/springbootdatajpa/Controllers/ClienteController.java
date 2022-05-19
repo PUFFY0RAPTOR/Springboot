@@ -18,14 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ClienteController {
-    
-    @Autowired//Estamos conectandolo al Query (Consulta) para generar una vista 
-    @Qualifier("ClienteDaoJPA")//Identifica cual repositorio usar
-    private IClienteDao clienteDao;//Instancia 
 
+    @Autowired // Estamos conectandolo al Query (Consulta) para generar una vista
+    @Qualifier("ClienteDaoJPA") // Identifica cual repositorio usar
+    private IClienteDao clienteDao;// Instancia
 
     @GetMapping("/listar")
-    public String listar(Model model){ //Asigno información a los templates, con los models
+    public String listar(Model model) { // Asigno información a los templates, con los models
 
         model.addAttribute("titulo", "Listado de clientes");
         model.addAttribute("clientes", clienteDao.findAll());
@@ -34,23 +33,30 @@ public class ClienteController {
     }
 
     @GetMapping("/form")
-    public String crear(Map<String,Object> model){//El String es lo que le vamos a enviar
+    public String crear(Map<String, Object> model) {// El String es lo que le vamos a enviar
 
-        Cliente cliente = new Cliente(); //Instanciamos el objeto
+        Cliente cliente = new Cliente(); // Instanciamos el objeto
 
-        model.put("cliente", cliente); //El primero es como se encuentra en el template (nombre de la variable en el html), y el otro es el objeto, con este le enviamos de otra forma
-        model.put("titulo", "Formulario de Cliente"); 
+        model.put("cliente", cliente); // El primero es como se encuentra en el template (nombre de la variable en el
+                                       // html), y el otro es el objeto, con este le enviamos de otra forma
+        model.put("titulo", "Formulario de Cliente");
 
         return "form";
     }
 
-    //@PostMapping("/form") para guardar desde un formulario se utiliza el Post
-    @RequestMapping(value = "/form", method = RequestMethod.POST) //Hay que especificar ya que por predeterminado pone GET
-    public String guardar(@Valid Cliente cliente,BindingResult result, Model model){ //Estamos validando al cliente ---- debemos entrar al pom.xml y duplicar la última dependencia y quitarle el Scope y cambiar el test por -validation
+    // @PostMapping("/form") para guardar desde un formulario se utiliza el Post
+    @RequestMapping(value = "/form", method = RequestMethod.POST) // Hay que especificar ya que por predeterminado pone
+                                                                  // GET
+    public String guardar(@Valid Cliente cliente, BindingResult result, Model model) { // Estamos validando al cliente
+                                                                                       // ---- debemos entrar al pom.xml
+                                                                                       // y duplicar la última
+                                                                                       // dependencia y quitarle el
+                                                                                       // Scope y cambiar el test por
+                                                                                       // -validation
 
-        clienteDao.save(cliente);//VAmos a guardar el cliente 
+        clienteDao.save(cliente);// VAmos a guardar el cliente
 
-        return "redirect:listar"; //Una vez que guarda nos manda nuevamente a listar
+        return "redirect:listar"; // Una vez que guarda nos manda nuevamente a listar
     }
 
 }
